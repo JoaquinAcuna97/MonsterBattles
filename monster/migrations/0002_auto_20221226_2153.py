@@ -61,7 +61,7 @@ def load_initial_data(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("monster", "0001_initial"),
+        ('monster', '0003_monster_name'),
     ]
 
     operations = [

@@ -8,4 +8,4 @@ class MonsterFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Monster
-        fields = ["file"]
+        fields = "__all__"

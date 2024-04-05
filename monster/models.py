@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator, URLVali
 
 # Create your models here.
 class Monster(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name")
+    name = models.CharField(max_length=100, verbose_name="Name",  default="A monster")
     speed = models.PositiveSmallIntegerField(
         blank=False,
         verbose_name="Speed",

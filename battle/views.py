@@ -1,10 +1,11 @@
 from django.db import transaction
 from django.http import Http404
 from rest_framework import mixins, viewsets
-
+from rest_framework.response import Response
 from battle.models import Battle
-from battle.serializers import BattleListSerializer, BattleCreateSerializer
-
+from battle.nested_serializers import BattleListPKSerializer
+from battle.serializers import BattleCreateSerializer
+from rest_framework.decorators import action
 
 # Create your views here.
 class BattleListCreateView(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -13,7 +14,7 @@ class BattleListCreateView(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
 
     queryset = Battle.objects.all()
-    serializer_class = BattleListSerializer
+    serializer_class = BattleListPKSerializer
     serializer_create_class = BattleCreateSerializer
     pagination_class = None
     authentication_classes = []
@@ -31,7 +32,7 @@ class BattleRetrieveDeleteView(mixins.RetrieveModelMixin, viewsets.GenericViewSe
     """
 
     queryset = Battle.objects.all()
-    serializer_class = BattleListSerializer
+    serializer_class = BattleListPKSerializer
     authentication_classes = []
     permission_classes = []
 
@@ -43,3 +44,12 @@ class BattleRetrieveDeleteView(mixins.RetrieveModelMixin, viewsets.GenericViewSe
             )
         except Http404:
             raise Battle.DoesNotExist
+
+    @transaction.atomic
+    def update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        battle = self.get_object()
+        battle.start()
+        return Response({'status': 'Battle Started'})
+
+

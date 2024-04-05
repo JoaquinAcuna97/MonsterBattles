@@ -10,7 +10,7 @@ class MonsterListRetrieveUpdateSerializer(MonsterBaseSerializer):
     battles = serializers.SerializerMethodField("get_monster_battles")
 
     def get_monster_battles(self, obj):
-        return BattleListPKSerializer(obj.battles.all(), many=True).data
+        return BattleListPKSerializer(obj.battlesA.all(), many=True).data
 
     class Meta:
         model = Monster

@@ -30,6 +30,11 @@ class MonsterListCreateView(mixins.CreateModelMixin, viewsets.GenericViewSet):
     def create(self, request, *args, **kwargs):
         return super(MonsterListCreateView, self).create(request, *args, **kwargs)
 
+    @transaction.atomic
+    def list(self, request):
+        queryset = Monster.objects.all()
+        serializer = MonsterListRetrieveUpdateSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class MonsterUpdateRetrieveDeleteView(
     mixins.RetrieveModelMixin,

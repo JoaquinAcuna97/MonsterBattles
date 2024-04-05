@@ -4,11 +4,15 @@ from battle.models import Battle
 
 
 class BattleListPKSerializer(serializers.ModelSerializer):
-    monsterA = serializers.PrimaryKeyRelatedField(
+    monsterA = serializers.SlugRelatedField(
+        many=False,
         read_only=True,
+        slug_field='name'
     )
-    monsterB = serializers.PrimaryKeyRelatedField(
+    monsterB = serializers.SlugRelatedField(
+        many=False,
         read_only=True,
+        slug_field='name'
     )
     winner = serializers.PrimaryKeyRelatedField(
         read_only=True,

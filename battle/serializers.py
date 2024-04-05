@@ -5,16 +5,6 @@ from battle.models import Battle
 from monster.nested_serializers import MonsterListRetrieveUpdateSerializer
 
 
-class BattleListSerializer(serializers.ModelSerializer):
-    monsterA = MonsterListRetrieveUpdateSerializer()
-    monsterB = MonsterListRetrieveUpdateSerializer()
-    winner = MonsterListRetrieveUpdateSerializer()
-
-    class Meta:
-        model = Battle
-        fields = "__all__"
-
-
 class BattleCreateSerializer(serializers.ModelSerializer):
     monsterA = MonsterListRetrieveUpdateSerializer(write_only=True)
     monsterB = MonsterListRetrieveUpdateSerializer(write_only=True)

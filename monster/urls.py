@@ -21,7 +21,7 @@ urlpatterns = [
     ),
     url(
         r"",
-        MonsterListCreateView.as_view({"post": "create"}),
+        MonsterListCreateView.as_view({"post": "create", "get": "list"}),
         name="monster_list_create",
     ),
 ]
